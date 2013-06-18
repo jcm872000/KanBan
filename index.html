@@ -13,28 +13,47 @@
 		<link rel="stylesheet" type="text/css" href="css/multilevelmenu.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/animations.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<script src="js/modernizr.custom.js"></script>
 	</head>
-	<body>	
-		
-		<div class="pt-triggers">
-			<button id="iterateEffects" class="pt-touch-button">下一张</button>
+	<body>
+	<div class="pt-ctl">	
+		<div class="pt-up">
+			<button id="it-up">上一张</button>
 		</div>
+		<div class="pt-down">
+			<button id="it-down">下一张</button>
+		</div>
+		<div class="pt-select">
+			<select id="it-select">
+				<option>指定页</option>
+  				<option>1</option>
+  				<option>2</option>
+  				<option>3</option>
+			</select>
+		</div>
+		<div class="pt-start">
+			<button id="it-start" onclick = "start()">暂停/继续</button>
+		</div>
+		<div class="pt-reload">
+			<button id="it-reload" onclick="iframe_reload()">立即刷新</button>
+		</div>
+	</div>
 
 		<!-- 设置访问页面 -->
-		<div id="pt-main" class="pt-perspective">
+		<div id="pt-main" class="pt-show">
 			<div class="pt-page pt-page-1"><iframe width="1280" height="1280" 
-																						 src="http://weibo.com/"
+																						 src="http://www.baidu.com"
 																						 style="background:white;">
 																		</iframe>
 			</div>
 			<div class="pt-page pt-page-2"><iframe width="1280" height="1280" 
-																						 src="http://www.163.com/" 
+																						 src="http://www.youku.com" 
 																						 style="background:white;">
 																		</iframe>
 			</div>
 			<div class="pt-page pt-page-3"><iframe width="1280" height="1280" 
-																						 src="http://benweet.github.io/stackedit/"
+																						 src="http://www.douban.com"
 																						 style="background:white;">
 																		</iframe>
 			</div>
@@ -43,14 +62,15 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="js/jquery.dlmenu.js"></script>
 		<script src="js/pagetransitions.js"></script>
-
 		<script type="text/javascript">
 			// 实现页面切换
 			function next_frame()
 			{
-				$(iterateEffects).click();
+				$( '#it-down' ).click();
 			}
-			setInterval("next_frame()", 15*1000);
+			var oTimer = null;
+			var timeSwitch=true; 
+			oTimer = setInterval("next_frame()", 15*1000);
 
 			// 实现iframe刷新
 			function iframe_reload()
@@ -61,6 +81,17 @@
 				};
 			}
 			setInterval("iframe_reload()", 60*1000);
+			function start(){
+				if( timeSwitch ){
+					clearInterval(oTimer);
+					timeSwitch = false;
+				}
+				else{
+					oTimer = setInterval("next_frame()", 15*1000);
+					timeSwitch=true;
+				}
+
+			}
 		</script>
 
 	</body>
